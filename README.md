@@ -59,7 +59,7 @@
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
     <li>
-      <a href="#about-the-project">Intoduction</a>
+      <a href="#Intoduction">Intoduction</a>
       <!--
       <ul>
         <li><a href="#built-with">Built With</a></li>
@@ -73,9 +73,9 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Images VS Containers</a></li>
-    <li><a href="#roadmap">Docker Commands</a></li>
-    <li><a href="#contributing">Dockerfile VS Docker Compose</a>
+    <li><a href="#images-vs-containers">Images VS Containers</a></li>
+    <li><a href="#dockercommands">Docker Commands</a></li>
+    <li><a href="#dockerfilevsdockercompose">Dockerfile VS Docker Compose</a>
           <ul>
         <li><a href="#file">Dockerfile</a></li>
         <li><a href="#compose">Docker Compose</a></li>
