@@ -75,7 +75,13 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#docker-architecture">Docker Architecture</a></li>
+    <li><a href="#docker-architecture">Docker Architecture</a>
+              <ul>
+        <li><a href="#docker-daemon">Docker Daemon</a></li>
+        <li><a href="#docker-client">Docker Client</a></li>
+        <li><a href="#docker-registries">Docker registries</a></li>
+        <li><a href="#docker-objects">Docker Objects</a></li>
+      </ul></li>
     <li><a href="#images-vs-containers">Images VS Containers</a></li>
     <li><a href="#docker-commands">Docker Commands</a></li>
     <li><a href="#dockerfile-vs-docker-compose">Dockerfile VS Docker Compose</a>
@@ -168,7 +174,13 @@ This is an installation guide of Docker into a Debian distribution (Ubuntu, Linu
 (This command downloads a test image and runs it in a container. When the container runs, it prints a message and exits.)
 <!-- Docker Architecture -->
 ## Docker Architecture
-
+Docker uses the client-server architecture, where each Docker client communicate the the Docker daemon using a REST API, over UNIX
+sockets or a network interface. They can run on the same system or the client can connect the daemon remotely.
+![alt text](img/architecture.svg)
+### Docker Daemon
+### Docker Client
+### Docker registries
+### Docker objects
 <!-- Images VS Containers -->
 ## Images VS Containers
 
@@ -235,7 +247,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 ## References
 
 * [Docker](https://docs.docker.com/)
-
+* [Playing with Java Microservices on Kubernetes and OpenShift](https://www.amazon.fr/Playing-Java-Microservices-Kubernetes-OpenShift/dp/1796877247)
 
 
 
