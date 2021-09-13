@@ -323,10 +323,50 @@ We are using two services, one is a container which exposes the REST API (app), 
 ## Docker Storage and Docker Networking
 
 ### Docker Storage
-sdjflskd
+Docker stores data pertaining to images, containers, volumes, etc under `/var/lib/docker`.
+
+![alt text](img/storage.png)
+
+You can create a docker volume by using the `docker volume create` command. This command will create a volume in the `/var/lib/docker/volumes` directory.
+
+```shell script
+$ docker volume create data_volume
+```
+
+Now when you run the `docker run` command, you can specify which volume to use using the -v flag. This is called Volume Mounting.
+
+```shell script
+$ docker run -v data_volume:/var/lib/mysql mysql
+```
+
+If the volume does not exist, docker creates one for you. Now, even if the container is destroyed the data will persist in the volume.
+
+If you want to have your data on a specific location on the docker host or already have existing data on the disk, you can mount this location on the container as well. This is called Bind Mounting.
+
+```shell script
+$ docker run -v /data/mysql:/var/lib/mysql mysql
+```
+
 ### Docker Networking
 
-Samir Samir
+When you install docker it creates three networks automatically - Bridge, Host, and None. Of which, Bridge is the default network a container gets attached to when it is run. To attach the container to any other network you can use the `--network` flag of the run command.
+
+![alt text](img/network.svg)
+
+The Bridge network assigns IPs in the range of 172.17.x.x to the containers within it. To access these containers from outside you need to map the ports of these containers to the ports on the host. Another automatically created network is Host. Selecting the Host network will remove any network isolation between the docker host and the containers. For instance, if you run a container on port 5000, it will be accessible on the same port on the docker host without any explicit port mapping. The only downside of this approach is that you can not use the same port twice for any container. Finally, the None network keeps the container in complete isolation, i.e. they are not connected to any network or container.
+The containers can reach each other using their names. This is made possible by an Embedded DNS which runs on the address 127.0.0.11.
+
+![alt text](img/DNS.svg)
+
+The containers get attached to the same network by default. What can we do if we want two containers on a separate network?
+
+![alt text](img/dockerhostsvg.svg)
+
+
+We can define a user-defined network for this purpose by using the following command and assigning this network when running the containers.
+
+![alt text](img/network2.svg)
+
 
 <!-- Projects -->
 ## Projects
