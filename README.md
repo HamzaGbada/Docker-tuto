@@ -261,6 +261,16 @@ Let's explain each line in details:
 `EXPOSE`:  instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.
 
 `CMD`: sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+
+To build this image you need just run the following command:
+
+    $ docker build -t myImage .
+
+To run it:
+
+    $ docker run -d -p 5000:5000 --name myContainer myImage -d
+
+    
 ### Docker Compose
 
 
