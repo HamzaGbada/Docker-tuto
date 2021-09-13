@@ -146,10 +146,18 @@ When you use Docker, you are creating and using images, containers, networks, vo
 <!-- Images VS Containers -->
 ## Images VS Containers
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Images and Containers are main concepts of in Docker, it's mandatory to difference between them:
+### Image
+Docker image is like VM image, it's package or a template with instructions for creating a Docker container.
+Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the `ubuntu` image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run
+You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
+### Container
+Containers are completely isolated environment as they can have their own process or service, networking interfaces, mounts..., just like VM except they all share the same operating system kernel.
+![alt text](img/container.png)
+You can create, start, stop, move, or delete a container using the Docker API or CLI.
+By default, a container is relatively well isolated from other containers and its host machine. You can control how isolated a container’s network, storage, or other underlying subsystems are from other containers or from the host machine.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+A container is defined by its image as well as any configuration options you provide to it when you create or start it. When a container is removed, any changes to its state that are not stored in persistent storage disappear.
 
 
 <!-- Docker Commands -->
