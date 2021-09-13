@@ -39,7 +39,11 @@
         <li><a href="#docker-registries">Docker registries</a></li>
         <li><a href="#docker-objects">Docker Objects</a></li>
       </ul></li>
-    <li><a href="#images-vs-containers">Images VS Containers</a></li>
+    <li><a href="#images-vs-containers">Images VS Containers</a>
+              <ul>
+        <li><a href="#images">Images</a></li>
+        <li><a href="#containers">Containers</a></li>
+      </ul></li>
     <li><a href="#docker-commands">Docker Commands</a></li>
     <li><a href="#dockerfile-vs-docker-compose">Dockerfile VS Docker Compose</a>
           <ul>
@@ -147,11 +151,11 @@ When you use Docker, you are creating and using images, containers, networks, vo
 ## Images VS Containers
 
 Images and Containers are main concepts of in Docker, it's mandatory to difference between them:
-### Image
+### Images
 Docker image is like VM image, it's package or a template with instructions for creating a Docker container.
 Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the `ubuntu` image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run
 You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
-### Container
+### Containers
 Containers are completely isolated environment as they can have their own process or service, networking interfaces, mounts..., just like VM except they all share the same operating system kernel.
 ![alt text](img/container.png)
 You can create, start, stop, move, or delete a container using the Docker API or CLI.
@@ -162,11 +166,71 @@ A container is defined by its image as well as any configuration options you pro
 
 <!-- Docker Commands -->
 ## Docker Commands
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
-
-
-
+In this section we will introduce all the basics commands:
+* Pull command: this command is used to download an image from _dockerhub_.
+    ``` 
+    $ docker pull <ImageTag> 
+    ```
+  Example:
+    ``` 
+    $ docker pull ubuntu 
+    ```
+* Run command: is used to run a container from an image, running this command will run an instance of the image on the docker host. If the image doesn't exist locally, the docker run command will pull it from the _dockerhub_.
+    ```
+    $ docker run <imageTag>
+    ``` 
+    Example:
+    ``` 
+    $ docker run ubuntu --name ubuntuTest
+    ```
+* Ps command: Show information about the running containers.
+    ```
+    $ docker ps 
+    ```
+    To show information about all containers running or not.
+    ``` 
+    $ docker ps -a
+    ```
+    To show information about docker images.
+    ``` 
+    $ docker images 
+    ```  
+* Stop Command:
+    To stop a running container
+    ``` 
+    $ docker stop <Container name or ID> 
+    ```
+    Example:
+    ``` 
+    $ docker stop ubuntuTest 
+    ```
+ * Remove Command:
+    To remove a container. Note, you should stop the container before removing it.
+    ``` 
+    $ docker rm <Container name or ID> 
+    ``` 
+     Example:
+    ``` 
+    $ docker rm ubuntuTest 
+    ```
+   To remove an image, you must remove all it dependent containers.
+   * Stop Command:
+    To stop a running container
+    ``` 
+    $ docker rmi <Image name or ID> 
+    ``` 
+     Example:
+    ``` 
+    $ docker rmi ubuntu 
+    ```
+ * Execute Command: it execute a linux command inside a docker container.
+    ``` 
+    $ docker exec <Container name or ID> <linux command> 
+    ```
+     Example:
+    ``` 
+    $ docker exec ubuntuTest cat /etc/*release* 
+    ```
 <!-- Dockerfile VS Docker Compose -->
 ## Dockerfile VS Docker Compose
 
