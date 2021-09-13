@@ -240,13 +240,15 @@ In this section we will introduce all the basics commands:
 ### Dockerfile
 Docker can build images automatically by reading the instructions from a _Dockerfile_. A _Dockerfile_ is a text document that contains all the commands a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
 Here's an example of building specific _Flask_ image based on Python image:
+```dockerfile
+FROM python:3.8
+WORKDIR /project
+ADD . /project
+RUN pip install --default-timeout=100 -r requirements.txt
+EXPOSE 5000
+CMD ["flask", "run", "-h", "0.0.0.0", "-p", "5000"]
+```
 
-    FROM python:3.8
-    WORKDIR /project
-    ADD . /project
-    RUN pip install --default-timeout=100 -r requirements.txt
-    EXPOSE 5000
-    CMD ["flask", "run", "-h", "0.0.0.0", "-p", "5000"]
 
 Let's explain each line in details:
 
@@ -285,7 +287,7 @@ Using Compose is basically a three-step process:
 Example:
 
 Let's go back to our Flask application and connect it to a MySQL Database, we create a new file `docker-compose.yml` (here we will use the version 2 of docker-compose file, for more about versions check [this](https://docs.docker.com/compose/compose-file/compose-versioning/)):
-```
+```yaml
 version: "2"
 services:
   app:
