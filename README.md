@@ -353,8 +353,9 @@ When you install docker it creates three networks automatically - Bridge, Host, 
 
 ![alt text](img/network.svg)
 
-The Bridge network assigns IPs in the range of 172.17.x.x to the containers within it. To access these containers from outside you need to map the ports of these containers to the ports on the host. Another automatically created network is Host. Selecting the Host network will remove any network isolation between the docker host and the containers. For instance, if you run a container on port 5000, it will be accessible on the same port on the docker host without any explicit port mapping. The only downside of this approach is that you can not use the same port twice for any container. Finally, the None network keeps the container in complete isolation, i.e. they are not connected to any network or container.
-The containers can reach each other using their names. This is made possible by an Embedded DNS which runs on the address 127.0.0.11.
+The Bridge network assigns IPs in the range of `172.17.x.x` to the containers within it. To access these containers from outside you need to map the ports of these containers to the ports on the host. Another automatically created network is Host. Selecting the Host network will remove any network isolation between the docker host and the containers. For instance, if you run a container on port `5000`, it will be accessible on the same port on the docker host without any explicit port mapping. The only downside of this approach is that you can not use the same port twice for any container. Finally, the None network keeps the container in complete isolation, i.e. they are not connected to any network or container.
+
+The containers can reach each other using their names. This is made possible by an Embedded DNS which runs on the address `127.0.0.11`.
 
 ![alt text](img/DNS.svg)
 
