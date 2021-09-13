@@ -231,11 +231,36 @@ In this section we will introduce all the basics commands:
     ``` 
     $ docker exec ubuntuTest cat /etc/*release* 
     ```
+ * Build Command: this command allow users to build their own images
+     ``` 
+    $ docker build [PATH to Dockerfile] . 
+    ```
 <!-- Dockerfile VS Docker Compose -->
 ## Dockerfile VS Docker Compose
-
 ### Dockerfile
-sdjflskd
+Docker can build images automatically by reading the instructions from a _Dockerfile_. A _Dockerfile_ is a text document that contains all the commands a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
+Here's an example of building specific _Flask_ image based on Python image:
+
+    FROM python:3.8
+    WORKDIR /project
+    ADD . /project
+    RUN pip install --default-timeout=100 -r requirements.txt
+    EXPOSE 5000
+    CMD ["flask", "run", "-h", "0.0.0.0", "-p", "5000"]
+
+Let's explain each line in details:
+
+`FROM`: creates a layer from the `python:3.8` Docker image.
+
+`WORKDIR`: This instruction sets the working directory for any `RUN`, `CMD`, `ENTRYPOINT`, `COPY` and `ADD` instructions that follow it in the _Dockerfile_
+
+`ADD`: copies new files, directories or remote file URLs from `<src>` and adds them to the filesystem of the image at the path `<dest>`.
+
+`RUN`: lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a new layer. In our example, it install requirement packages inside the images.
+
+`EXPOSE`:  instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.
+
+`CMD`: sets default command and/or parameters, which can be overwritten from command line when docker container runs.
 ### Docker Compose
 
 
