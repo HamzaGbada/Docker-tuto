@@ -272,7 +272,52 @@ To run it:
 
     
 ### Docker Compose
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. 
 
+Using Compose is basically a three-step process:
+
+1. Define your app’s environment with a _Dockerfile_ so it can be reproduced anywhere.
+
+2. Define the services that make up your app in `docker-compose.yml` so they can be run together in an isolated environment.
+
+3. Run `docker-compose up` and the Docker compose command starts and runs your entire app. 
+
+Example:
+
+Let's go back to our Flask application and connect it to a MySQL Database, we create a new file `docker-compose.yml` (here we will use the version 2 of docker-compose file, for more about versions check [this](https://docs.docker.com/compose/compose-file/compose-versioning/)):
+```
+version: "2"
+services:
+  app:
+    build: ./app
+    links:
+      - db
+    ports:
+      - "5000:5000"
+  db:
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+```
+We are using two services, one is a container which exposes the REST API (app), and one contains the database (db).
+
+`build`: specifies the directory which contains the Dockerfile containing the instructions for building this service
+
+`links`: links this service to another container. This will also allow us to use the name of the service instead of having to find the ip of the database container, and express a dependency which will determine the order of start up of the container
+
+`ports`: mapping of `<Host>:<Container>` ports.
+
+`image`: Like the `FROM` instruction from the _Dockerfile_. Instead of writing a new Dockerfile, we are using an existing image from a repository. It’s important to specify the version — if your installed `mysql` client is not of the same version problems may occur.
+
+`environment`: add environment variables. The specified variable is required for this image, and as its name suggests, configures the password for the root user of MySQL in this container. More variables are specified here.
+
+`ports`: Since I already have a running mysql instance on my host using this port, I am mapping it to a different one. Notice that the mapping is only from host to container, so our app service container will still use port 3306 to connect to the database.
+
+`volumes`: since we want the container to be initialized with our schema, we wire the directory containing our init.sql script to the entry point for this container, which by the image’s specification runs all .sql scripts in the given directory.
 
 <!-- Docker Storage and Docker Networking -->
 ## Docker Storage and Docker Networking
