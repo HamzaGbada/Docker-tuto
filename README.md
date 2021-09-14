@@ -60,7 +60,6 @@
       <li><a href="#projets">Projects</a>
               <ul>
         <li><a href="#spring-boot-demo">Spring-Boot Demo</a></li>
-        <li><a href="#nodejs-demo">NodeJs Demo</a></li>
         <li><a href="#jupyter-notebook-demo">Jupyter-Notebook Demo</a></li>
       </ul>
      </li>
@@ -447,9 +446,7 @@ we can access to the **SWAGGER UI** of our application and test each API via:
 ```commandline
 http://localhost:9090/acm/swagger-ui.html
 ```
-### NodeJS Demo
 
-Samir Samir
 
 ### Jupyter-notebook Demo
 
