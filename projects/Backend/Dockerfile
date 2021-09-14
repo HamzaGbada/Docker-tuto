@@ -4,6 +4,6 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=/home/app/target/acmbackend-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=/home/app/target/backend-0.0.1-SNAPSHOT.jar
 COPY --from=build ${JAR_FILE} application.jar
 ENTRYPOINT ["java", "-jar", "application.jar"]

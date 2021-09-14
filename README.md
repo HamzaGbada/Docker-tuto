@@ -383,9 +383,69 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=/home/app/target/acmbackend-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=/home/app/target/backend-0.0.1-SNAPSHOT.jar
 COPY --from=build ${JAR_FILE} application.jar
 ENTRYPOINT ["java", "-jar", "application.jar"]
+```
+As we can see in the _Dockerfile_, the first step is to package the application as a JAR file using `maven`. Here, we clean-up our previous builds before packaging the application. In addition, we skip the tests because they fail without PostgreSQL.
+
+
+We now have an application JAR file in the target directory. That file has the project name and version number in its name and ends with -SNAPSHOT.jar. So its name could be **backend-0.0.1-SNAPSHOT.jar**.
+
+Finally, we use uses Java 8 and copies the application JAR file to application.jar. It then runs that JAR file to start our Spring Boot application.
+
+And now to connect our DB we will use _docker-compose.yml_:
+
+```yaml
+version: '2'
+
+services:
+  app:
+    image: 'springbootapp'
+    build: .
+    container_name: app
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres'
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+```
+
+Our application's name is app. It's the first of two services:
+
+* The Spring Boot Docker image has the name `springbootapp`. Docker builds that image from the Dockerfile in the current directory.
+* The container name is app. It depends on the `db` service. That's why it starts after the db container.
+* Our application uses the db PostgreSQL container as the data source. The database name, the user name, and the password are all `postgres`.
+* Hibernate will automatically create or update any database tables needed.
+
+The PostgreSQL database has the name db and is the second service:
+
+* We use PostgreSQL
+* The container name is db
+* The user name and password are both `postgres`
+
+Finally, we run our application by:
+```shell script
+$ docker-compose up
+```
+
+![alt text](img/spring-app.png)
+we can access to the **SWAGGER UI** of our application and test each API via:
+```commandline
+http://localhost:9090/acm/swagger-ui.html
 ```
 ### NodeJS Demo
 
