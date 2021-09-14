@@ -474,6 +474,7 @@ http://localhost:10000/
 ```
 you need to specify a token that you can find in docker logs, also you can find the created notebook inside the directory where you run the command.
 In our case, I create a notebook where I implement [VGG19](https://arxiv.org/pdf/1409.1556.pdf) model using [Keras](https://keras.io/).
+You can find this notebook in `projects/jupyter`.
 
 To install some packages inside that container while working with it, in this example we will install [Pydicom](https://pydicom.github.io/pydicom/) inside it:
 
@@ -493,9 +494,6 @@ $ docker exec -it jupyter-container /bin/bash
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/hamzagbada/
