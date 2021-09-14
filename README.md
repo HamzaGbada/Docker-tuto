@@ -63,7 +63,6 @@
         <li><a href="#jupyter-notebook-demo">Jupyter-Notebook Demo</a></li>
       </ul>
      </li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </details>
@@ -447,20 +446,41 @@ we can access to the **SWAGGER UI** of our application and test each API via:
 http://localhost:9090/acm/swagger-ui.html
 ```
 
+Now I wanna connect PGADMIN container to our PostgreSQL container.
+
+1. we create a docker network:
+```shell script
+$ docker network create --driver=bridge --subnet=172.168.0.0/16 network
+```
+2. connect the postgres container to the network
+```shell script
+$ docker run -p 5432:5432 -it --network=network1 --env POSTGRES_PASSWORD=postgres --env POSTGRES_USER=postgres --env POSTGRES_DB=postgres -d postgres
+```
+3. connect the pgadmin container to the network
+```shell script
+$ docker run -it --network=network1 --env PGADMIN_DEFAULT_EMAIL=bob@gmail.com --env PGADMIN_DEFAULT_PASSWORD=bob dpage/pgadmin4
+```
+Now just check the IP of the postgres container and configure it in pgadmin interface.
 
 ### Jupyter-notebook Demo
+this demo is dedicated to data scientists, who are enthusiastic about Jupyter-Notebook.
+To use jupyter inside docker-container we will this command:
+```shell script
+$ docker run -p 10000:8888 --name=jupyter-container -v "${PWD}":/home/jovyan/work jupyter/datascience-notebook
+```
+After this, you will be able to access jupyter-notebook via 
+```commandline
+http://localhost:10000/
+```
+you need to specify a token that you can find in docker logs, also you can find the created notebook inside the directory where you run the command.
+In our case, I create a notebook where I implement [VGG19](https://arxiv.org/pdf/1409.1556.pdf) model using [Keras](https://keras.io/).
 
-Samir Samir
+To install some packages inside that container while working with it, in this example we will install [Pydicom](https://pydicom.github.io/pydicom/) inside it:
 
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-
+```shell script
+$ docker exec -it jupyter-container /bin/bash
+(base) jovyan@e3f26c3ab085:~$ pip install pydicom
+```
 
 <!-- references -->
 ## References
