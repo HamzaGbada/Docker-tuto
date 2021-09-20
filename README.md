@@ -151,7 +151,9 @@ When you use Docker, you are creating and using images, containers, networks, vo
 Images and Containers are main concepts of in Docker, it's mandatory to difference between them:
 ### Images
 Docker image is like VM image, it's package or a template with instructions for creating a Docker container.
-Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the `ubuntu` image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run
+
+Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the `ubuntu` image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run.
+
 You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
 ### Containers
 Containers are completely isolated environment as they can have their own process or service, networking interfaces, mounts..., just like VM except they all share the same operating system kernel.
@@ -211,7 +213,7 @@ In this section we will introduce all the basics commands:
     ``` 
     $ docker rm ubuntuTest 
     ```
-   To remove an image, you must remove all it dependent containers.
+   To remove an image, you must remove all, it dependent containers.
    * Stop Command:
     To stop a running container
     ``` 
@@ -221,7 +223,7 @@ In this section we will introduce all the basics commands:
     ``` 
     $ docker rmi ubuntu 
     ```
- * Execute Command: it execute a linux command inside a docker container.
+ * Execute Command: it executes a linux command inside a docker container.
     ``` 
     $ docker exec <Container name or ID> <linux command> 
     ```
@@ -229,15 +231,15 @@ In this section we will introduce all the basics commands:
     ``` 
     $ docker exec ubuntuTest cat /etc/*release* 
     ```
- * Build Command: this command allow users to build their own images
+ * Build Command: this command allows users to build their own images
      ``` 
     $ docker build [PATH to Dockerfile] . 
     ```
 <!-- Dockerfile VS Docker Compose -->
 ## Dockerfile VS Docker Compose
 ### Dockerfile
-Docker can build images automatically by reading the instructions from a _Dockerfile_. A _Dockerfile_ is a text document that contains all the commands a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
-Here's an example of building specific _Flask_ image based on Python image:
+Docker can build images automatically by reading the instructions from a _Dockerfile_. A _Dockerfile_ is a text document that contains all the commands. A user can execute the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
+Here's an example of building specific _Flask_ image based on a Python image:
 ```dockerfile
 FROM python:3.8
 WORKDIR /project
@@ -256,13 +258,13 @@ Let's explain each line in details:
 
 `ADD`: copies new files, directories or remote file URLs from `<src>` and adds them to the filesystem of the image at the path `<dest>`.
 
-`RUN`: lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a new layer. In our example, it install requirement packages inside the images.
+`RUN`: lets you execute commands inside of your Docker image. These commands get executed once at build time and get written into your Docker image as a new layer. In our example, it installs requirement packages inside the images.
 
-`EXPOSE`:  instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.
+`EXPOSE`:  instruction informs Docker that the container listens to the specified network ports at runtime. You can specify whether the port follows TCP or UDP, and the default is TCP if the protocol is not specified.
 
-`CMD`: sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+`CMD`: sets default commands and/or parameters, which can be overwritten from the command line when the docker container runs.
 
-To build this image you need just run the following command:
+To build this image you need to just run the following command:
 
     $ docker build -t myImage .
 
@@ -388,9 +390,9 @@ ENTRYPOINT ["java", "-jar", "application.jar"]
 As we can see in the _Dockerfile_, the first step is to package the application as a JAR file using `maven`. Here, we clean-up our previous builds before packaging the application. In addition, we skip the tests because they fail without PostgreSQL.
 
 
-We now have an application JAR file in the target directory. That file has the project name and version number in its name and ends with -SNAPSHOT.jar. So its name could be **backend-0.0.1-SNAPSHOT.jar**.
+We now have an applicationn, a JAR file, in the target directory. That file has the project name and version number in its name and ends with -SNAPSHOT.jar. So its name could be **backend-0.0.1-SNAPSHOT.jar**.
 
-Finally, we use uses Java 8 and copies the application JAR file to application.jar. It then runs that JAR file to start our Spring Boot application.
+Finally, we use use Java 8 and we copy the application JAR file to application.jar. It then runs that JAR file to start our Spring Boot application.
 
 And now to connect our DB we will use _docker-compose.yml_:
 
@@ -446,7 +448,7 @@ we can access to the **SWAGGER UI** of our application and test each API via:
 http://localhost:9090/acm/swagger-ui.html
 ```
 
-Now I wanna connect PGADMIN container to our PostgreSQL container.
+Now I want to connect PGADMIN container to our PostgreSQL container.
 
 1. we create a docker network:
 ```shell script
@@ -472,7 +474,7 @@ After this, you will be able to access jupyter-notebook via
 ```commandline
 http://localhost:10000/
 ```
-you need to specify a token that you can find in docker logs, also you can find the created notebook inside the directory where you run the command.
+You need to specify a token that you can find in docker logs, also you can find the created notebook inside the directory where you run the command.
 In our case, I create a notebook where I implement [VGG19](https://arxiv.org/pdf/1409.1556.pdf) model using [Keras](https://keras.io/).
 You can find this notebook in `projects/jupyter`.
 
@@ -497,3 +499,4 @@ $ docker exec -it jupyter-container /bin/bash
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/hamzagbada/
+ﷺ
