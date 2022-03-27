@@ -233,8 +233,7 @@ In this section we will introduce all the basics commands:
     $ docker rm ubuntuTest 
     ```
    To remove an image, you must remove all, it dependent containers.
-   * Stop Command:
-    To stop a running container
+   * Remove image Command:
     ``` 
     $ docker rmi <Image name or ID> 
     ``` 
