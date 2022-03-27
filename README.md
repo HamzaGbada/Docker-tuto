@@ -321,7 +321,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./db:/var/lib/mysql
 ```
 We are using two services, one is a container which exposes the REST API (app), and one contains the database (db).
 
@@ -416,7 +416,6 @@ And now to connect our DB we will use _docker-compose.yml_:
 
 ```yaml
 version: '2'
-
 services:
   app:
     image: 'springbootapp'
@@ -431,7 +430,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
   db:
     image: 'postgres'
     container_name: db
@@ -440,6 +438,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ~/db:/var/lib/postgresql/data
 ```
 
 Our application's name is app. It's the first of two services:
