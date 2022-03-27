@@ -493,7 +493,7 @@ After this, you will be able to access jupyter-notebook via
 http://localhost:10000/
 ```
 You need to specify a token that you can find in docker logs, also you can find the created notebook inside the directory where you run the command.
-In our case, I create a notebook where I implement [VGG19](https://arxiv.org/pdf/1409.1556.pdf) model using [Keras](https://keras.io/).
+In our case, I create a notebook where I implement some Machine Learning examples using [Scikit-Learn](https://scikit-learn.org/stable/).
 You can find this notebook in `projects/jupyter`.
 
 To install some packages inside that container while working with it, in this example we will install [Pydicom](https://pydicom.github.io/pydicom/) inside it:
